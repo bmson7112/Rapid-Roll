@@ -369,8 +369,45 @@ void game::gameloop()
 	{
 		SDL_Delay(10);
 		//Handle events on queue
-		while (SDL_PollEvent(&e) != 0)
+		if (menu1)
 		{
+			drawMenu1();
+		}
+		if (menu2)
+		{
+			drawMenu2();
+		}
+		else if (choose_player)
+		{
+			SDL_RenderClear(renderer);
+			renderTexture(choose, renderer, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+			renderTexture(Cat_menu, renderer, 10, 460, 300, 290);
+			renderTexture(Dog_menu, renderer, 310, 460, 300, 290);
+			SDL_RenderPresent(renderer);
+		}
+		else if (playing)
+		{
+			draw();
+
+		}
+		if (health <= 0)
+		{
+			Mix_PauseMusic();
+			SDL_Delay(10);
+			Mix_PlayChannel(-1, Mgameover, 0);
+			SDL_Delay(10);
+			renderTexture(gameover, renderer, 0, 350, 600, 100);
+			SDL_RenderPresent(renderer);
+			SDL_Delay(3000);
+			waitUntilKeyPressed();
+			Resrest();
+			Mix_PlayMusic(Music, -1);
+			menu1 = true;
+			playing = false;
+		}
+		while (SDL_PollEvent(&e) == 1)
+		{
+
 			if (menu1)
 			{
 				switch (e.type)
@@ -439,28 +476,26 @@ void game::gameloop()
                 case SDL_QUIT:
 				{
 					quitSDL(window, renderer);
-
+                    break;
 				}
-
-
 				case SDL_MOUSEBUTTONDOWN:
 				{
 				    SDL_GetMouseState(&xm, &ym);
-
 					//start
-					if (xm > 0 && xm < 250 && ym > 350 && ym < 800) {
+					if (xm > 0 && xm < 250 && ym > 350 && ym < 750) {
 						first_time = false;
 						_choose = true;
 						playing = true;
 						choose_player = false;
 					}
 
-					if (xm > 350 && xm < 600 && ym > 350 && ym < 800) {
+					if (xm > 350 && xm < 600 && ym > 350 && ym < 750) {
 						first_time = false;
 						_choose = false;
 						playing = true;
 						choose_player = false;
 					}
+					break;
 				}
 				}
 
@@ -470,9 +505,10 @@ void game::gameloop()
 			{
 				switch (e.type)
 				{
-				    case SDL_QUIT:
+				   case SDL_QUIT:
 				{
 					quitSDL(window, renderer);
+					break;
 				}
 				case SDL_KEYDOWN:
 				{
@@ -491,42 +527,6 @@ void game::gameloop()
 				}
 				}
 			}
-		}
-		if (menu1)
-		{
-			drawMenu1();
-		}
-		if (menu2)
-		{
-			drawMenu2();
-		}
-		else if (choose_player)
-		{
-			SDL_RenderClear(renderer);
-			renderTexture(choose, renderer, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-			renderTexture(Cat_menu, renderer, 10, 460, 300, 290);
-			renderTexture(Dog_menu, renderer, 310, 460, 300, 290);
-			SDL_RenderPresent(renderer);
-		}
-		else if (playing)
-		{
-			draw();
-
-		}
-		if (health <= 0)
-		{
-			Mix_PauseMusic();
-			SDL_Delay(10);
-			Mix_PlayChannel(-1, Mgameover, 0);
-			SDL_Delay(10);
-			renderTexture(gameover, renderer, 0, 350, 600, 100);
-			SDL_RenderPresent(renderer);
-			SDL_Delay(3000);
-			waitUntilKeyPressed();
-			Resrest();
-			Mix_PlayMusic(Music, -1);
-			menu1 = true;
-			playing = false;
 		}
 
 	}

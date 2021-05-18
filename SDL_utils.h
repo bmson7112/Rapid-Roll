@@ -13,7 +13,7 @@ using namespace std;
 
 const string WINDOW_TITLE = "Rapid Roll";
 const int SCREEN_WIDTH = 600;
-const int SCREEN_HEIGHT = 800;
+const int SCREEN_HEIGHT = 750;
 void logSDLError(std::ostream& os,
                  const std::string &msg, bool fatal = false);
 void quitSDL(SDL_Window* window, SDL_Renderer* renderer);

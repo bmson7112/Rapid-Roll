@@ -13,18 +13,15 @@ class game
 {
 public:
 
-
-
 	bool start = true;
 
-	//menu đầu game
+
 	bool menu1 = true;
+
 	bool menu2 = false;
 
-	//khi game đang chơi
+
 	bool playing = false;
-
-
 
 	bool choose_player = false;
 
@@ -57,7 +54,7 @@ private:
 
 	long long health;
 	long long score = 0;
-	long long time = 0;
+
 	int bg_y = 0;
 	//menu
 	SDL_Texture* Menu;

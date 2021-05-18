@@ -33,7 +33,6 @@ void quitSDL(SDL_Window* window, SDL_Renderer* renderer)
 	SDL_Quit();
 }
 
-
 SDL_Texture* LoadTexture(const std::string filepath, SDL_Renderer* render)
 {
 	//create temp surface then load IMG to it
